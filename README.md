@@ -1,33 +1,38 @@
 # Modmail
 
-Discord bot for contacting a server's moderators easily and anonymously.
+> **NOTICE:** I'm not working in this bot anymore. You're free to use it and/or fork the project though; as long as you comply with the AGPL terms.
 
-**Important Note:** This bot only works inside **one** server. It's not meant to be used as a globally hosted bot for multiple servers to use.
+> **Important Note:** There is **no** global bot you can invite. The code is designed to work with a single guild, so you'll have to host it yourself if you need it in your server.
+
+Discord bot for contacting a server's moderators easily and anonymously.
 
 ## Building
 
-* Clone the repository.
+- Clone the repository.
 
   ```bash
-  git clone https://github.com/eficats/modmail
+  git clone https://github.com/lmarinborges/modmail
   ```
 
-* Install [sqlx-cli](https://github.com/launchbadge/sqlx/tree/master/sqlx-cli).
+- Install [sqlx-cli](https://github.com/launchbadge/sqlx).
+
   ```bash
   cargo install sqlx-cli
   ```
 
-* Export `DATABASE_URL` (the path isn't important since SQLite is file-based).
+- Export `DATABASE_URL`, optionally change the file the database will be saved to.
+
   ```bash
   export DATABASE_URL='sqlite:compiled.db'
   ```
 
-* Create database file (used by SQLx to type check SQL queries).
+- Create the database.
+
   ```bash
   sqlx db setup
   ```
 
-* Compile with cargo.
+- Compile with cargo.
   ```
   cargo build --release
   ```
@@ -36,14 +41,16 @@ Discord bot for contacting a server's moderators easily and anonymously.
 
 ### Running
 
-* [Create a new application at Discord Developers if you haven't already.](https://discord.com/developers/applications)
+- [Create a new application at Discord Developers if you haven't already.](https://discord.com/developers/applications)
 
-* Copy the link and replace `<YOUR_ID_HERE>` with your application ID to invite the bot to the server.
+- Copy the link and replace `<YOUR_ID_HERE>` with your application ID to invite the bot to the server.
+
   ```
   https://discord.com/api/oauth2/authorize?client_id=<YOUR_ID_HERE>&permissions=17448306688&scope=applications.commands%20bot
   ```
 
-* Create a `.env` file next to the executable with the following contents.
+- Create a `.env` file at the root of the project.
+
   ```sh
   # your discord API token
   DISCORD_TOKEN=
@@ -59,14 +66,18 @@ Discord bot for contacting a server's moderators easily and anonymously.
   RUST_LOG=info
   ```
 
-* Run the executable.
+- Run the server.
+
+  ```bash
+  cargo run
+  ```
 
 ### Configuring
 
 The bot uses two basic slash commands to configure itself:
 
-* `/blockrole set <role>` will configure `<role>` as the bot's block role. If a member has this role, the bot will refuse to forward their DMs.
-* `/inbox set <channel>` will set a text channel as your "inbox". As soon as the bot receives a DM from a user it doesn't recognize, it will create a thread under this channel, with a randomly generated name such as `peaceful bonefish` or `accurate wren`.
+- `/blockrole set <role>` will configure `<role>` as the bot's block role. If a member has this role, the bot will refuse to forward their DMs.
+- `/inbox set <channel>` will set a text channel as your "inbox". As soon as the bot receives a DM from a user it doesn't recognize, it will create a thread under this channel, with a randomly generated name such as `peaceful bonefish` or `accurate wren`.
 
 ## Usage
 
